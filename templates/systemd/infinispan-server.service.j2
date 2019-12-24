@@ -1,0 +1,14 @@
+[Unit]
+Description=Infinispan Server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User={{ infinispan_server_user }}
+Group={{ infinispan_server_user }}
+ExecStart={{ infinispan_server_install_dir }}/infinispan-server-{{ infinispan_server_version }}/bin/server.sh
+EnvironmentFile=-{{ systemd_environment_file_dir }}/infinispan-server
+
+[Install]
+WantedBy=multi-user.target

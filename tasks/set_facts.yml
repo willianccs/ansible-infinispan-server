@@ -1,0 +1,14 @@
+---
+- name: set infinispan server minor version
+  set_fact:
+    infinispan_server_minor_version: "{{ infinispan_server_version | regex_replace('^(\\d+\\.\\d+)\\..+', '\\1') }}"
+
+- name: set systemd environment file dir / Debian
+  set_fact:
+    systemd_environment_file_dir: "/etc/default"
+  when: ansible_os_family == "Debian"
+
+- name: set systemd environment file dir / Red Hat
+  set_fact:
+    systemd_environment_file_dir: "/etc/sysconfig"
+  when: ansible_os_family == "RedHat"

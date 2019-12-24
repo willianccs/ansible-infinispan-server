@@ -1,0 +1,11 @@
+---
+infinispan_server_version: "10.1.0.Final"
+
+infinispan_server_user: "ispn"
+infinispan_server_install_dir: "/opt/"
+    
+infinispan_server_config_file_template: ""    # infinispan.xml template path if needed
+    
+jdk_version: "11"    # e.g. 11, 1.8.0
+    
+systemd_environment_file_template: ""    # systemd environment-file template path if needed

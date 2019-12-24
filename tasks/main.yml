@@ -1,0 +1,81 @@
+---
+- name: include set_facts.yml
+  include: set_facts.yml
+
+- name: setup requirements
+  include: setup_requirements.yml
+
+- name: add infinispan server user
+  become: yes
+  user:
+    name: "{{ infinispan_server_user }}"
+
+- name: include java.yml
+  include: java.yml
+
+- name: download infinispan server
+  become: yes
+  get_url:
+    url: "https://downloads.jboss.org/infinispan/{{ infinispan_server_version }}/infinispan-server-{{ infinispan_server_version }}.zip"
+    dest: "/tmp/infinispan-server-{{ infinispan_server_version }}.zip"
+
+- name: unpack infinispan server archive
+  become: yes
+  unarchive:
+    src: "/tmp/infinispan-server-{{ infinispan_server_version }}.zip"
+    dest: "/tmp"
+    remote_src: yes
+
+- name: install infinispan server
+  become: yes
+  copy:
+    src: "/tmp/infinispan-server-{{ infinispan_server_version }}"
+    dest: "{{ infinispan_server_install_dir }}"
+    owner: "{{ infinispan_server_user }}"
+    group: "{{ infinispan_server_user }}"
+    remote_src: yes
+
+- name: install infinispan server config file
+  become: yes
+  template:
+    src: "{{ infinispan_server_config_file_template }}"
+    dest: "{{ infinispan_server_install_dir }}/infinispan-server-{{ infinispan_server_version }}/server/conf/infinispan.xml"
+    owner: "{{ infinispan_server_user }}"
+    group: "{{ infinispan_server_user }}"
+  when: infinispan_server_config_file_template != ""
+  notify:
+    - restart infinispan server
+
+- name: install systemd environment file
+  become: yes
+  template:
+    src: "{{ systemd_environment_file_template }}"
+    dest: "{{ systemd_environment_file_dir }}/infinispan-server"
+  when: systemd_environment_file_template != ""
+  notify:
+    - restart infinispan server
+
+- name: install systemd service unit
+  become: yes
+  template:
+    src: systemd/infinispan-server.service.j2
+    dest: /etc/systemd/system/infinispan-server.service
+  notify:
+    - restart infinispan server
+
+- name: reload service unit
+  become: yes
+  systemd:
+    daemon_reload: yes
+
+- name: enable service unit
+  become: yes
+  systemd:
+    name: infinispan-server
+    enabled: yes
+
+- name: start infinispan server
+  become: yes
+  systemd:
+    name: infinispan-server
+    state: started

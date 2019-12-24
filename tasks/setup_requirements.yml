@@ -1,0 +1,20 @@
+---
+- name: setup requirements / Debian
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - unzip
+  when: ansible_os_family == "Debian"
+
+- name: setup requirements / Red Hat
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - unzip
+  when: ansible_os_family == "RedHat"

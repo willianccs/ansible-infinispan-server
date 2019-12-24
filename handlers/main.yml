@@ -1,0 +1,6 @@
+---
+- name: restart infinispan server
+  become: yes
+  systemd:
+    name: infinispan-server
+    state: restarted
