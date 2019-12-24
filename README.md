@@ -3,6 +3,10 @@ Infinispan Server
 
 Ansible Galaxy Role for Infinispan Server.
 
+Supported Infinispan Server version:
+
+* 10.0.0.Final and later
+
 Tested platform are:
 
 * Ubuntu Linux 18.04
