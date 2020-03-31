@@ -1,5 +1,5 @@
 ---
-infinispan_server_version: "10.1.0.Final"
+infinispan_server_version: "10.1.5.Final"
 
 infinispan_server_user: "ispn"
 infinispan_server_install_dir: "/opt/"
