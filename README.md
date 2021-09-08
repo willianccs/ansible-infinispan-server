@@ -5,7 +5,7 @@ Ansible Galaxy Role for Infinispan Server.
 
 Supported Infinispan Server version:
 
-* 10.0.0.Final and later
+* 12.1.x.Final and later
 
 Tested platform are:
 
@@ -21,16 +21,16 @@ Install
 -------
 
 ```shell
-$ ansible-galaxy install git+https://github.com/kazuhira-r/ansible-infinispan-server
+$ ansible-galaxy install git+https://github.com/willianccs/ansible-infinispan-server
 ```
 
 `requirements.yml`
 
 ```
 ---
-- src: https://github.com/kazuhira-r/ansible-infinispan-server
+- src: https://github.com/willianccs/ansible-infinispan-server
   version: master
-  name: kazuhira-r.infinispan-server
+  name: willianccs.infinispan-server
 ```
 
 
@@ -38,7 +38,7 @@ Role Variables
 --------------
 
 ```yaml
-infinispan_server_version: "10.1.0.Final"
+infinispan_server_version: "12.1.7.Final"
 
 infinispan_server_user: "ispn"
 infinispan_server_install_dir: "/opt/"
@@ -54,7 +54,7 @@ Facts
 --------------
 
 ```yaml
-infinispan_server_minor_version: 10.1
+infinispan_server_minor_version: 12.1
 ```
 
 Dependencies
@@ -73,7 +73,7 @@ Including an example of how to use your role (for instance, with variables passe
   hosts: infinispan_servers
   roles:
     - name: ansible-infinispan-server
-    # - name: kazuhira-r.infinispan-server
+    # - name: willianccs.infinispan-server
       vars:
         systemd_environment_file_template: "systemd/infinispan-server.j2"
         infinispan_server_config_file_template: "server/conf/infinispan.xml.j2"
@@ -138,7 +138,7 @@ Configuration File Template Example
 License
 -------
 
-Copyright &copy; 2019 kazuhira-r
+Copyright &copy; 2021 willianccs
 
 Licensed under the [Apache License, Version 2.0][Apache]
  
