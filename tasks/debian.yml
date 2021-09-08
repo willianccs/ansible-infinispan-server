@@ -1,0 +1,11 @@
+---
+- name: setup requirements
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - unzip
+    - wget
+    - openjdk-{{ jdk_version }}-jdk-headless
