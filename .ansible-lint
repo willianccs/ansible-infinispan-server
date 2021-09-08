@@ -1,0 +1,4 @@
+skip_list:
+  - deprecations
+warn_list:
+  - experimental

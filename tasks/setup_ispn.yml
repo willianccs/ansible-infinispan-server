@@ -35,7 +35,7 @@
     dest: "{{ infinispan_server_install_dir }}/infinispan-server-{{ infinispan_server_version }}/server/conf/infinispan.xml"
     owner: "{{ infinispan_server_user }}"
     group: "{{ infinispan_server_user }}"
-  when: infinispan_server_config_file_template != ""
+  when: infinispan_server_config_file_template is defined
   notify:
     - restart infinispan server
 
@@ -44,7 +44,7 @@
   ansible.builtin.template:
     src: "{{ systemd_environment_file_template }}"
     dest: "{{ systemd_environment_file_dir }}/infinispan-server"
-  when: systemd_environment_file_template != ""
+  when: systemd_environment_file_template is defined
   notify:
     - restart infinispan server
 
